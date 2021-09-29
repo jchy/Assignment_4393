@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function newsApi(){
+            let res = await fetch('http://newsapi.org/v2/everything?q=India&from=2021-09-29&sortBy=popularity&apiKey=70d349c6fbc749edb423899493e06e6d');
+            let news = await res.json();
+            news = news.articles;
+            createNewsHeadLines(news);
+        }
+        newsApi()
+        var total = 1;
+       var outerDiv = document.createElement("div");
+       const h3 = document.createElement("h1")
+       h3.textContent = "Today TOP 10 Headlines Of Indian News";
+       h3.style.textAlign = "center";
+       h3.style.backgroundColor = "black";
+       h3.style.color = "white";
+       outerDiv.append(h3);
+       function createNewsHeadLines(news){
+               for(var data of news){
+                   if(total > 10)
+                    break;
+                   var headLines = document.createElement("h4");
+                   headLines.textContent = (total++)+". "+(data.title);
+                   headLines.style.textAlign = "left"
+                   headLines.style.marginLeft = 15+"%";
+                   headLines.style.fontSize = 25+"px";
+                   outerDiv.append(headLines);
+
+               }
+               let body = document.querySelector("body");
+               body.backgroundColor = "cornsilk"
+               body.append(outerDiv);
+           }
+    </script>
+
+</body>
+
+</html>
